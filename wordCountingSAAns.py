@@ -21,8 +21,10 @@ from colorama import Fore, Back, Style
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# --posWordFile "positive-words.txt" --negWordFile "negative-words.txt" --tweetsFile "dump.json" --ts --approach "count"
+# --posWordFile "positive-words.txt" --negWordFile "negative-words.txt" --tweetsFile "tweet.json" --print --ts --approach "count"
+# --posWordFile "positive-words.txt" --negWordFile "negative-words.txt" --tweetsFile "tweet.json" --print --ts --approach "vader"
 # https://www.youtube.com/watch?v=cdblJqEUDNo
+
 def buildParser():
     """
     Constructs the command line argument parser.
@@ -38,7 +40,7 @@ def buildParser():
     parser.add_argument('--print', dest='print', action='store_true', help='flag to determine whether to print out tweets and their sentiment')
     parser.add_argument('--ts', dest='ts', action='store_true',
                         help='flag to determine whether to display a time series of the sentiment over time')
-    parser.add_argument('--approach', default='count', help='specify the approach to take, one of [count, vader, so]')
+    parser.add_argument('--approach', default='count', help='specify the approach to take, one of [count, vader]')
 
     return parser
 

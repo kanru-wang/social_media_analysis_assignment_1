@@ -53,6 +53,7 @@ def main():
     with open(fJsonName, 'r') as f:
         for line in f:
             # Me: this "if" clause is added to skip blank lines between tweets.
+            #     doesn't seem to really need it.
             if line not in ['\n', '\r\n']:
                 tweet = json.loads(line)
                 tweetText = tweet.get('text', '')
