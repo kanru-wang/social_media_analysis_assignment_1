@@ -132,8 +132,12 @@ def vaderSentimentAnalysis(sTweetsFilename, bPrint, tweetProcessor):
 
                 # this computes the sentiment scores (called polarity score in nltk, but mean same thing essentially)
                 # see lab sheet for what dSentimentScores holds
-                dSentimentScores = sentAnalyser.polarity_scores(" ".join(lTokens))
-
+                
+                # Me: remember vader has lexical features that our tokeniser may have removed.
+                #     We can feed in either raw tweets or processed tweets.
+                #dSentimentScores = sentAnalyser.polarity_scores(" ".join(lTokens))
+                dSentimentScores = sentAnalyser.polarity_scores(tweetText)
+                
                 # save the date and sentiment of each tweet (used for time series)
                 lSentiment.append([pd.to_datetime(tweetDate), dSentimentScores['compound']])
 
@@ -281,11 +285,17 @@ def main():
         # by day, and add up all the sentiment scores for the same day and create a new time series called 'newSeries'
         # with this day resolution
         # TODO: play with this for different resolution, '1H' is by hour, '1M' is by minute etc
-        #newSeries = series.resample('1D', how='sum')
-        newSeries = series.resample('1H', how='sum')
+        sentimentSeries = series.resample('1H').sum()
+        tweetCountSeries = series.resample('1H').count()
+        
         # this plots and shows the time series
-        newSeries.plot()
+        plt.figure(figsize=(6,3), dpi = 100)
+        plt.plot(sentimentSeries)
+        plt.plot(tweetCountSeries)
+        plt.legend(['Sentiment', 'Tweet Count'], loc='upper left')
+        plt.savefig('fig6.png')
         plt.show()
+        plt.close()
 
 
 ################################################################

@@ -1,3 +1,7 @@
 assignment1.pdf
 *.json
 *.docx
+extra_copy_twitterClient/
+twitterClient.py
+*.PNG
+*.pdf
